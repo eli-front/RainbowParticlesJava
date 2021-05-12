@@ -20,11 +20,9 @@ public class Scene extends JPanel implements ActionListener {
 	@Serial
 	private static final long serialVersionUID = 1L;
 	
-	Timer timer = new Timer(10, this);
-	
-	final private int BALL_COUNT = 120;
-	
-	private final Ball[] leadBalls = new Ball[BALL_COUNT];
+	Timer timer = new Timer(20, this);
+
+	private final ArrayList<Ball> leadBalls = new ArrayList<>();
 
 	private final ArrayList<Connector> connectors = new ArrayList<>();
 	
@@ -33,8 +31,12 @@ public class Scene extends JPanel implements ActionListener {
 	private final Random r = new Random();
 	
 	public void addBalls() {
-		for (int i = 0; i < BALL_COUNT; i++) {
-			leadBalls[i] = new Ball(this, new Point2D.Double(r.nextDouble()*getWidth(), r.nextDouble()*getHeight()));
+		while (leadBalls.size() < getHeight()*getWidth()/4200) {
+			leadBalls.add(new Ball(this, new Point2D.Double(r.nextDouble()*getWidth(), r.nextDouble()*getHeight())));
+		}
+
+		while (leadBalls.size() > getHeight()*getWidth()/4200) {
+			leadBalls.remove(0);
 		}
 		
 	}
@@ -94,14 +96,14 @@ public class Scene extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		for (int i = 0; i < leadBalls.length; i++) {
-			Ball ball = leadBalls[i];
+		addBalls();
+		for (int i = 0; i < leadBalls.size(); i++) {
+			Ball ball = leadBalls.get(i);
 			ball.update();
 
-			for (int j = i+1; j < leadBalls.length; j++) {
-				if (Math.abs(Ball.distance(ball.position, leadBalls[j].position)) < Ball.CONNECTION_VALUE) {
-					connectors.add(new Connector((Point2D.Double) ball.position.clone(), (Point2D.Double) leadBalls[j].position.clone(), this));
+			for (int j = i+1; j < leadBalls.size(); j++) {
+				if (Math.abs(Ball.distance(ball.position, leadBalls.get(j).position)) < Ball.CONNECTION_VALUE) {
+					connectors.add(new Connector((Point2D.Double) ball.position.clone(), (Point2D.Double) leadBalls.get(j).position.clone(), this));
 				}
 			}
 			
