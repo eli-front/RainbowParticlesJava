@@ -34,26 +34,27 @@ public class Ball {
 	}
 	
 	public TrailBall getTrail() {
-		return new TrailBall(fillColor, new Point2D.Double(position.getX(), position.getY()));
+		checkWall();
+		return new TrailBall(fillColor, new Point2D.Double(position.getX(), position.getY()), scene);
 	}
 	
 	private void checkWall() {
-		if (position.x < 0) {
+		if (position.x < SIZE/2.0) {
 			velocity.x *= -1;
-			position.x = 0;
+			position.x = SIZE/2.0;
 		}
-		if (position.x > scene.getWidth()-SIZE) {
+		if (position.x > scene.getWidth()-SIZE/2.0) {
 			velocity.x *= -1;
-			position.x = scene.getWidth()-SIZE;
+			position.x = scene.getWidth()-SIZE/2.0;
 			
 		}
-		if (position.y < 0) {
+		if (position.y < SIZE/2.0) {
 			velocity.y *= -1;
-			position.y = 0;
+			position.y = SIZE/2.0;
 		}
-		if (position.y > scene.getHeight()-SIZE) {
+		if (position.y > scene.getHeight()-SIZE/2.0) {
 			velocity.y *= -1;
-			position.y = scene.getHeight()-SIZE;
+			position.y = scene.getHeight()-SIZE/2.0;
 		}
 	}
 	

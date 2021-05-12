@@ -49,13 +49,13 @@ public class Scene extends JPanel implements ActionListener {
              g2draw.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 
         	for (Ball ball : leadBalls) {
-	            Ellipse2D.Double e = new Ellipse2D.Double(ball.position.x, ball.position.y, Ball.SIZE, Ball.SIZE);
+	            Ellipse2D.Double e = new Ellipse2D.Double(ball.position.x-Ball.SIZE/2.0, ball.position.y-Ball.SIZE/2.0, Ball.SIZE, Ball.SIZE);
 	            g2draw.setColor(ball.fillColor);
 	            g2draw.fill(e);
         	}
         	
         	trailBalls.forEach((ball) -> {
-        		Ellipse2D.Double e = new Ellipse2D.Double(ball.position.x, ball.position.y, Ball.SIZE, Ball.SIZE);
+        		Ellipse2D.Double e = new Ellipse2D.Double(ball.position.x-Ball.SIZE/2.0, ball.position.y-Ball.SIZE/2.0, Ball.SIZE, Ball.SIZE);
 	            g2draw.setColor(ball.fillColor);
 	            g2draw.fill(e);
         	});
